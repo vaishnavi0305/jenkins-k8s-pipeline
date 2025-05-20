@@ -46,11 +46,19 @@ pipeline {
 		
 		stage('Deploy to Kubernetes') {
 			steps {
-				withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]){
+				withCredentials([file(credentialsId: 'minikube-kubeconfig', variable: 'KUBECONFIG')]){
 				sh 'kubectl apply -f k8s/deployment.yaml'
 				sh 'kubectl apply -f k8s/service.yaml'
 			}
 		}
 	}
 }
+	post {
+		failure {
+			echo 'Pipeline failed'
+		}
+		success {
+			echo 'Application deployed successfully on Kubernetes!'
+		}
+	}
 }
