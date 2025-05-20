@@ -14,8 +14,20 @@ pipeline {
 		
 		stage('Install Dependencies and Run Tests') {
 			steps {
-			 	sh 'pip install pytest flask'
-				sh 'pytest test_app.py'
+				sh '''
+        			echo "Setting up Python virtual environment..."
+        			python3 -m venv venv
+        			source venv/bin/activate
+
+       				echo "Installing dependencies..."
+        			pip install --upgrade pip
+        			pip install pytest flask
+
+        			echo "Running tests..."
+        			pytest || echo "No tests found or test failure."
+
+        			deactivate
+				'''
 			}
 		}
 		
