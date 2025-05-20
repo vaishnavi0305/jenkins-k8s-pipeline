@@ -4,7 +4,7 @@ pipeline {
 	environment {
 		DOCKER_IMAGE = 'vaishnavi453/jenkins-app'
 	}
-}
+
 	stages {
 		stage('Checkout Code') {
 			steps{
@@ -41,3 +41,4 @@ pipeline {
 			}
 		}
 	}
+}
