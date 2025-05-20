@@ -17,7 +17,7 @@ pipeline {
 				sh '''
         			echo "Setting up Python virtual environment..."
         			python3 -m venv venv
-        			source venv/bin/activate
+        			. venv/bin/activate
 
        				echo "Installing dependencies..."
         			pip install --upgrade pip
@@ -25,8 +25,6 @@ pipeline {
 
         			echo "Running tests..."
         			pytest || echo "No tests found or test failure."
-
-        			deactivate
 				'''
 			}
 		}
